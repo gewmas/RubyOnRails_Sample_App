@@ -1,12 +1,22 @@
-<% if @user.errors.any? %>
-<div id="error_explanation">
-  <div class="alert alert-error">
-    The form contains <%= pluralize(@user.errors.count, "error") %>.
-  </div>
-  <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-    <li>* <%= msg %></li>
+<!-- %= render 'shared/error_messages', object: f.object %
+works. You may recall from Listing 7.23 that the error messages partial references the @user variable explicitly, but in the present case we have an @micropost variable instead. We should define an error messages partial that works regardless of the kind of object passed to it. Happily, the form variable f can access the associated object through f.object, so that in
+
+form_for(@user) do |f|
+f.object is @user, and in
+
+form_for(@micropost) do |f|
+f.object is @micropost.
+
+To pass the object to the partial, we use a hash with value equal to the object and key equal to the desired name of the variable in the partial, which is what this code accomplishes: -->
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(object.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
     <% end %>
-  </ul>
-</div>
+    </ul>
+  </div>
 <% end %>

@@ -25,6 +25,13 @@ module SessionsHelper
 		user == current_user
 	end
 
+	def signed_in_user
+		unless signed_in?
+			store_location
+			redirect_to signin_url, notice: "Please sign in."
+		end
+	end
+
 	def sign_out
 		self.current_user = nil
 		cookies.delete(:remember_token)
@@ -35,11 +42,11 @@ module SessionsHelper
 		session.delete(:return_to)
 	end
 
-# The store_location method puts the requested URL in the session variable under the key :return_to, 
-# but only for a GET request (if request.get?). 
-# This prevents storing the forwarding URL if a user, say, submits a form when not logged in 
-# (which is an edge case but could happen if, e.g., a user deleted the remember token by hand before submitting the form); 
-# in this case, the resulting redirect would issue a GET request to a URL expecting POST, PATCH, or DELETE, thereby causing an error.
+	# The store_location method puts the requested URL in the session variable under the key :return_to, 
+	# but only for a GET request (if request.get?). 
+	# This prevents storing the forwarding URL if a user, say, submits a form when not logged in 
+	# (which is an edge case but could happen if, e.g., a user deleted the remember token by hand before submitting the form); 
+	# in this case, the resulting redirect would issue a GET request to a URL expecting POST, PATCH, or DELETE, thereby causing an error.
 	def store_location
 		session[:return_to] = request.url if request.get?
 	end
