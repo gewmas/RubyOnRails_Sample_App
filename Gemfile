@@ -1,8 +1,15 @@
+# $ bundle exec rake db:reset
+# $ bundle exec rake db:populate
+# $ bundle exec rake test:prepare
+
+# bundle install
+# bundle update rails
+
 source 'https://rubygems.org'
 ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.2'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '3.1.2'
 # Faker gem to the Gemfile, which will allow us to make sample users with semi-realistic names and email addresses
@@ -15,6 +22,8 @@ group :development, :test do
   gem 'sqlite3', '1.3.8'
   gem 'rspec-rails', '2.13.1'
 
+  # The following optional lines are part of the advanced setup.
+  gem 'guard-rspec', '2.5.0'
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
@@ -28,6 +37,18 @@ group :test do
   # Cucumber
   gem 'cucumber-rails', '1.4.0', :require => false
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
+
+
+  # Uncomment this line on OS X.
+  gem 'growl', '1.0.3'
+
+  # Uncomment these lines on Linux.
+  # gem 'libnotify', '0.8.0'
+
+  # Uncomment these lines on Windows.
+  # gem 'rb-notifu', '0.0.4'
+  # gem 'win32console', '1.3.2'
+  # gem 'wdm', '0.1.0'
 end
 
 gem 'sass-rails', '4.0.1'

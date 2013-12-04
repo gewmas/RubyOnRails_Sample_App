@@ -43,7 +43,7 @@ describe "User pages" do
 				fill_in "Name",         with: "Example User"
 				fill_in "Email",        with: "user@example.com"
 				fill_in "Password",     with: "foobar"
-				fill_in "Confirmation", with: "foobar"
+				fill_in "Confirm Password", with: "foobar"
 			end
 
 			it "should create a user" do
@@ -98,9 +98,26 @@ describe "User pages" do
 			specify { expect(user.reload.name).to  eq new_name }
 			specify { expect(user.reload.email).to eq new_email }
 		end
-	end
 
-	describe "index" do
+		# By issuing a PATCH request directly to the update method as shown in Listing 9.48, 
+		# verify that the admin attribute isn’t editable through the web. 
+		# Be sure to get first to Red, and then to Green. 
+		# (Hint: Your first step should be to add admin to the list of permitted parameters 
+		# in user_params.)
+		describe "forbidden attributes" do
+			let(:params) do
+				{ user: { admin: true, password: user.password,
+					password_confirmation: user.password } }
+				end
+				before do
+					sign_in user, no_capybara: true
+					patch user_path(user), params
+				end
+				specify { expect(user.reload).not_to be_admin }
+			end
+		end
+
+		describe "index" do
 		# before do
 		# 	sign_in FactoryGirl.create(:user)
 		# 	FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
