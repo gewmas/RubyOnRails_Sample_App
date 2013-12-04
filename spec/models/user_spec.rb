@@ -14,8 +14,10 @@ describe User do
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
 	it { should respond_to(:authenticate) }
+	it { should respond_to(:admin) }
 
 	it { should be_valid }
+	it { should_not be_admin }
 
 	describe "when name is not present" do
 		before { @user.name = " " }
@@ -112,19 +114,12 @@ describe User do
 		its(:remember_token) { should_not be_blank }
 	end
 
-	# describe "with valid information" do
-	# 	describe "after saving the user" do
-	# 		before { click_button submit }
-	# 		let(:user) { User.find_by(email: 'user@example.com') }
+	describe "with admin attribute set to 'true'" do
+		before do
+			@user.save!
+			@user.toggle!(:admin)
+		end
 
-	# 		it { should have_link('Sign out') }
-	# 		it { should have_title(user.name) }
-	# 		it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-	# 	end
-
-	# 	describe "followed by signout" do
-	# 		before { click_link "Sign out" }
-	# 		it { should have_link('Sign in') }
-	# 	end
-	# end
+		it { should be_admin }
+	end
 end

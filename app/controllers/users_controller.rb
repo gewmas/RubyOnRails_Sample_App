@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 	before_action :correct_user,   only: [:edit, :update]
 
 	def index
-		@users = User.all
+		# @users = User.all
+		@users = User.paginate(page: params[:page])
 	end
 
 	def show
@@ -43,6 +44,8 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
+		# if we simply passed an initialization hash in from an arbitrary web request, a malicious user could send a PATCH request as follows:
+		# patch /users/17?admin=1
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
 	end
 
