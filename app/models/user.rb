@@ -1,6 +1,19 @@
 class User < ActiveRecord::Base
 	has_many :microposts, dependent: :destroy
-	
+	# (Since destroying a user should also destroy that user’s relationships, 
+	# we’ve gone ahead and added dependent: :destroy to the association; 
+	# writing a test for this is left as an exercise 
+	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+	has_many :followed_users, through: :relationships, source: :followed
+	# would assemble an array using the followed_id in the relationships table. 
+	# But, as noted in Section 11.1.1, user.followeds is rather awkward; 
+	# far more natural is to use “followed users” as a plural of “followed”, 
+	# and write instead user.followed_users for the array of followed users. 
+	# Naturally, Rails allows us to override the default, in this case using the :source parameter (Listing 11.10), 
+	# which explicitly tells Rails that the source of the followed_users array is the set of followed ids.
+	has_many :reverse_relationships, foreign_key: "followed_id", class_name:  "Relationship", dependent: :destroy
+	has_many :followers, through: :reverse_relationships, source: :follower
+
 	before_save { email.downcase! }
 	before_create :create_remember_token
 
@@ -18,6 +31,19 @@ class User < ActiveRecord::Base
 	    # This is preliminary. See "Following users" for the full implementation.
 	    Micropost.where("user_id = ?", id)
 	end
+
+	def following?(other_user)
+		relationships.find_by(followed_id: other_user.id)
+	end
+
+	def follow!(other_user)
+		relationships.create!(followed_id: other_user.id)
+	end
+
+	def unfollow!(other_user)
+		relationships.find_by(followed_id: other_user.id).destroy!
+	end
+
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
