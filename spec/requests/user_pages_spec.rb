@@ -1,3 +1,10 @@
+# By issuing a PATCH request directly to the update method as shown in Listing 9.48, 
+	# verify that the admin attribute isn’t editable through the web. 
+	# Be sure to get first to Red, and then to Green. 
+	# (Hint: Your first step should be to add admin to the list of permitted parameters 
+	# in user_params.)
+# describe "forbidden attributes" do
+
 require 'spec_helper'
 
 describe "User pages" do
@@ -19,7 +26,58 @@ describe "User pages" do
 			it { should have_content(m2.content) }
 			it { should have_content(user.microposts.count) }
 		end
+
+		describe "follow/unfollow buttons" do
+			let(:other_user) { FactoryGirl.create(:user) }
+			before { sign_in user }
+
+			describe "following a user" do
+				before { visit user_path(other_user) }
+
+				it "should increment the followed user count" do
+					expect do
+						click_button "Follow"
+					end.to change(user.followed_users, :count).by(1)
+				end
+
+				it "should increment the other user's followers count" do
+					expect do
+						click_button "Follow"
+					end.to change(other_user.followers, :count).by(1)
+				end
+
+				describe "toggling the button" do
+					before { click_button "Follow" }
+					it { should have_xpath("//input[@value='Unfollow']") }
+				end
+			end
+
+			describe "unfollowing a user" do
+				before do
+					user.follow!(other_user)
+					visit user_path(other_user)
+				end
+
+				it "should decrement the followed user count" do
+					expect do
+						click_button "Unfollow"
+					end.to change(user.followed_users, :count).by(-1)
+				end
+
+				it "should decrement the other user's followers count" do
+					expect do
+						click_button "Unfollow"
+					end.to change(other_user.followers, :count).by(-1)
+				end
+
+				describe "toggling the button" do
+					before { click_button "Unfollow" }
+					it { should have_xpath("//input[@value='Follow']") }
+				end
+			end
+		end
 	end
+
 
 	describe "signup page" do
 		before { visit signup_path }
@@ -108,33 +166,24 @@ describe "User pages" do
 			specify { expect(user.reload.email).to eq new_email }
 		end
 
-	# By issuing a PATCH request directly to the update method as shown in Listing 9.48, 
-	# verify that the admin attribute isn’t editable through the web. 
-	# Be sure to get first to Red, and then to Green. 
-	# (Hint: Your first step should be to add admin to the list of permitted parameters 
-	# in user_params.)
-describe "forbidden attributes" do
-	let(:params) do
-		{ user: { admin: true, password: user.password,
-			password_confirmation: user.password } }
-		end
-		before do
-			sign_in user, no_capybara: true
-			patch user_path(user), params
-		end
-		specify { expect(user.reload).not_to be_admin }
-	end
-end
 
-describe "index" do
-		# before do
-		# 	sign_in FactoryGirl.create(:user)
-		# 	FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
-		# 	FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
-		# 	visit users_path
-		# end
+		describe "forbidden attributes" do
+			let(:params) do
+				{ user: { admin: true, password: user.password,
+					password_confirmation: user.password } }
+				end
+				before do
+					sign_in user, no_capybara: true
+					patch user_path(user), params
+				end
+				specify { expect(user.reload).not_to be_admin }
+			end
+		end
 
-		let(:user) { FactoryGirl.create(:user) }
+		describe "index" do
+
+
+			let(:user) { FactoryGirl.create(:user) }
 		# uses before(:each) to emphasize the contrast with before(:all).
 		before(:each) do
 			sign_in user
