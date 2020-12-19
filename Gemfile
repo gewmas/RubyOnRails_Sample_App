@@ -11,6 +11,7 @@ gem 'coffee-rails', '>=4.0.1'
 gem 'faker', '>=1.1.2' # Faker gem to the Gemfile, which will allow us to make sample users with semi-realistic names and email addresses
 gem 'jbuilder', '>=1.0.2'
 gem 'jquery-rails', '>=3.0.4'
+gem 'responders'
 gem 'sass-rails', '>=4.0.1'
 gem 'turbolinks', '>=1.1.1'
 gem 'uglifier', '>=2.1.1'
@@ -36,6 +37,7 @@ group :test do
   gem 'capybara', '>=2.1.0'
   gem 'factory_girl_rails', '>=4.2.1'
   gem 'selenium-webdriver', '>=2.35.1'
+  gem 'rspec-its'
 
   # Cucumber
   gem 'cucumber-rails', '>=1.4.0', require: false

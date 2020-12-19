@@ -26,5 +26,7 @@ module SampleApp
     # config.i18n.default_locale = :de
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
+
+    config.middleware.use ActionDispatch::Cookies 
   end
 end
