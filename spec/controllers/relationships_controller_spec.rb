@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe RelationshipsController, type: :request do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:other_user) { FactoryGirl.create(:user) }
+describe RelationshipsController do
+  let(:user) { FactoryBot.create(:user) }
+  let(:other_user) { FactoryBot.create(:user) }
 
   before { sign_in user, no_capybara: true }
 
   describe 'creating a relationship with Ajax' do
     it 'should increment the Relationship count' do
       expect do
-        xhr :post, :create, relationship: { followed_id: other_user.id }
+        post :create, params: { relationship: { followed_id: other_user.id } } #, xhr: true
       end.to change(Relationship, :count).by(1)
     end
 
     it 'should respond with success' do
-      xhr :post, :create, relationship: { followed_id: other_user.id }
+      post :create, relationship: { followed_id: other_user.id }, xhr: true
       expect(response).to be_success
     end
   end

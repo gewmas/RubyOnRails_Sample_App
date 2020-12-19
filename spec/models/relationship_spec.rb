@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Relationship do
-  let(:follower) { FactoryGirl.create(:user) }
-  let(:followed) { FactoryGirl.create(:user) }
+  let(:follower) { FactoryBot.create(:user) }
+  let(:followed) { FactoryBot.create(:user) }
   # As with microposts in Section 10.1.3, we will create new relationships using the user association, with code such as
   # user.relationships.build(followed_id: ...)
   let(:relationship) { follower.relationships.build(followed_id: followed.id) }

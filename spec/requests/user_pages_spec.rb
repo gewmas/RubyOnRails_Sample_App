@@ -11,9 +11,9 @@ describe 'User pages' do
   subject { page }
 
   describe 'profile page' do
-    let(:user) { FactoryGirl.create(:user) }
-    let!(:m1) { FactoryGirl.create(:micropost, user: user, content: 'Foo') }
-    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: 'Bar') }
+    let(:user) { FactoryBot.create(:user) }
+    let!(:m1) { FactoryBot.create(:micropost, user: user, content: 'Foo') }
+    let!(:m2) { FactoryBot.create(:micropost, user: user, content: 'Bar') }
 
     before { visit user_path(user) }
 
@@ -27,7 +27,7 @@ describe 'User pages' do
     end
 
     describe 'follow/unfollow buttons' do
-      let(:other_user) { FactoryGirl.create(:user) }
+      let(:other_user) { FactoryBot.create(:user) }
       before { sign_in user }
 
       describe 'following a user' do
@@ -125,7 +125,7 @@ describe 'User pages' do
   end
 
   describe 'edit' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     before do
       sign_in user
       visit edit_user_path(user)
@@ -177,7 +177,7 @@ describe 'User pages' do
   end
 
   describe 'index' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     # uses before(:each) to emphasize the contrast with before(:all).
     before(:each) do
       sign_in user
@@ -198,7 +198,7 @@ describe 'User pages' do
       # before all the tests in the block. This is an optimization for speed,
       # as creating 30 users can be slow on some systems.
       # We use the complementary method after(:all) to delete the users once we’re done.
-      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      before(:all) { 30.times { FactoryBot.create(:user) } }
       after(:all) { User.delete_all }
 
       it { should have_selector('div.pagination') }
@@ -214,7 +214,7 @@ describe 'User pages' do
       it { should_not have_link('delete') }
 
       describe 'as an admin user' do
-        let(:admin) { FactoryGirl.create(:admin) }
+        let(:admin) { FactoryBot.create(:admin) }
         before do
           sign_in admin
           visit users_path
@@ -232,8 +232,8 @@ describe 'User pages' do
   end
 
   describe 'following/followers' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:other_user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:other_user) { FactoryBot.create(:user) }
     before { user.follow!(other_user) }
 
     describe 'followed users' do

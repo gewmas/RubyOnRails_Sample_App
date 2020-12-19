@@ -23,7 +23,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '>=2.13.1'
+  gem 'rspec'
   gem 'sqlite3', '>=1.3.8'
 
   # The following optional lines are part of the advanced setup.
@@ -35,9 +35,10 @@ end
 
 group :test do
   gem 'capybara', '>=2.1.0'
-  gem 'factory_girl_rails', '>=4.2.1'
+  gem 'factory_bot_rails'
   gem 'selenium-webdriver', '>=2.35.1'
   gem 'rspec-its'
+  gem 'byebug'
 
   # Cucumber
   gem 'cucumber-rails', '>=1.4.0', require: false

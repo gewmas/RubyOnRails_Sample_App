@@ -145,10 +145,10 @@ describe User do
 
     before { @user.save }
     let!(:older_micropost) do
-      FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+      FactoryBot.create(:micropost, user: @user, created_at: 1.day.ago)
     end
     let!(:newer_micropost) do
-      FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
+      FactoryBot.create(:micropost, user: @user, created_at: 1.hour.ago)
     end
 
     it 'should have the right microposts in the right order' do
@@ -169,9 +169,9 @@ describe User do
 
     describe 'status' do
       let(:unfollowed_post) do
-        FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+        FactoryBot.create(:micropost, user: FactoryBot.create(:user))
       end
-      let(:followed_user) { FactoryGirl.create(:user) }
+      let(:followed_user) { FactoryBot.create(:user) }
 
       before do
         @user.follow!(followed_user)
@@ -190,7 +190,7 @@ describe User do
   end
 
   describe 'following' do
-    let(:other_user) { FactoryGirl.create(:user) }
+    let(:other_user) { FactoryBot.create(:user) }
     before do
       @user.save
       @user.follow!(other_user)

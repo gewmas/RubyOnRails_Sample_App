@@ -26,7 +26,7 @@ describe 'Authentication' do
     end
 
     describe 'with valid information' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
       # before do
       # 	fill_in "Email",    with: user.email.upcase
       # 	fill_in "Password", with: user.password
@@ -51,7 +51,7 @@ describe 'Authentication' do
 
   describe 'authorization' do
     describe 'for non-signed-in users' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       describe 'in the Users controller' do
         describe 'visiting the edit page' do
@@ -135,17 +135,17 @@ describe 'Authentication' do
         end
 
         describe 'submitting to the destroy action' do
-          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          before { delete micropost_path(FactoryBot.create(:micropost)) }
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
     end
 
     describe 'as wrong user', type: :request do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
       # This creates a user with a different email address from the default. The tests specify that the original user should not
       # have access to the wrong user’s edit or update actions.
-      let(:wrong_user) { FactoryGirl.create(:user, email: 'wrong@example.com') }
+      let(:wrong_user) { FactoryBot.create(:user, email: 'wrong@example.com') }
       before { sign_in user, no_capybara: true }
 
       describe 'submitting a GET request to the Users#edit action' do
@@ -161,8 +161,8 @@ describe 'Authentication' do
     end
 
     describe 'as non-admin user', type: :request do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:non_admin) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
+      let(:non_admin) { FactoryBot.create(:user) }
 
       before { sign_in non_admin, no_capybara: true }
 

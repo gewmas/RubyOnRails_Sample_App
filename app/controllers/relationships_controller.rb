@@ -26,8 +26,12 @@ class RelationshipsController < ApplicationController
   respond_to :html, :js
 
   def create
+    byebug
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
+
+    byebug
+
     respond_with @user
   end
 

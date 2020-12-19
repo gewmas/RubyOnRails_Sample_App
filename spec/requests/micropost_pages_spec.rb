@@ -4,7 +4,7 @@ require 'spec_helper'
 describe 'MicropostPages' do
   subject { page }
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   before { sign_in user }
 
   describe 'micropost creation' do
@@ -30,7 +30,7 @@ describe 'MicropostPages' do
   end
 
   describe 'micropost destruction' do
-    before { FactoryGirl.create(:micropost, user: user) }
+    before { FactoryBot.create(:micropost, user: user) }
 
     describe 'as correct user' do
       before { visit root_path }
