@@ -1,7 +1,7 @@
 # $ bundle exec rake db:migrate
 # $ bundle exec rake test:prepare
 
-class CreateRelationships < ActiveRecord::Migration
+class CreateRelationships < ActiveRecord::Migration[4.2]
   def change
     create_table :relationships do |t|
       t.integer :follower_id
