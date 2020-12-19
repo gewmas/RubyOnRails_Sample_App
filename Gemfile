@@ -34,11 +34,11 @@ group :development, :test do
 end
 
 group :test do
+  gem 'byebug'
   gem 'capybara', '>=2.1.0'
   gem 'factory_bot_rails'
-  gem 'selenium-webdriver', '>=2.35.1'
   gem 'rspec-its'
-  gem 'byebug'
+  gem 'selenium-webdriver', '>=2.35.1'
 
   # Cucumber
   gem 'cucumber-rails', '>=1.4.0', require: false

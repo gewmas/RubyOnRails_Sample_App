@@ -27,6 +27,6 @@ module SampleApp
 
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
 
-    config.middleware.use ActionDispatch::Cookies 
+    config.middleware.use ActionDispatch::Cookies
   end
 end

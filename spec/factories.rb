@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   sequence(:name)  { |n| "Person #{n}" }
-  sequence(:email) { |n|  "person#{n}#{Time.new.usec}@example.com" }
-  
+  sequence(:email) { |n| "person#{n}#{Time.new.usec}@example.com" }
+
   factory :user do
     name
     email
-    password {'foobar' }
+    password { 'foobar' }
     password_confirmation { 'foobar' }
 
     factory :admin do
