@@ -250,7 +250,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
-    rake (13.0.1)
+    rake (13.0.2)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -334,7 +334,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (>= 3.1.2)
-  bootstrap-sass (>= 2.3.2.0)
+  bootstrap-sass (>= 3.2.2.0)
   bootstrap-will_paginate (>= 0.0.9)
   capybara (>= 2.1.0)
   childprocess (>= 0.3.6)

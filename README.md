@@ -23,4 +23,5 @@ by [Michael Hartl](http://michaelhartl.com/).
 rails db:migrate RAILS_ENV=test
 
 rails spec
+rspec /Users/yuhuamai/Developer/ruby/RubyOnRails_Sample_App/spec/requests/authentication_pages_spec.rb
 ```

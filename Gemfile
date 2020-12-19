@@ -5,7 +5,7 @@ ruby '2.7.0'
 gem 'rails', '6.0.0'
 
 gem 'bcrypt-ruby', '>=3.1.2'
-gem 'bootstrap-sass', '>=2.3.2.0'
+gem 'bootstrap-sass', '>=3.2.2.0'
 gem 'bootstrap-will_paginate', '>=0.0.9'
 gem 'coffee-rails', '>=4.0.1'
 gem 'faker', '>=1.1.2' # Faker gem to the Gemfile, which will allow us to make sample users with semi-realistic names and email addresses
