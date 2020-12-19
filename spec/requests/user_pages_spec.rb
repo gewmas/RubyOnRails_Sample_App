@@ -163,7 +163,7 @@ describe 'User pages' do
       specify { expect(user.reload.email).to eq new_email }
     end
 
-    describe 'forbidden attributes' do
+    describe 'forbidden attributes', type: :request do
       let(:params) do
         { user: { admin: true, password: user.password,
                   password_confirmation: user.password } }

@@ -141,7 +141,7 @@ describe 'Authentication' do
       end
     end
 
-    describe 'as wrong user' do
+    describe 'as wrong user', type: :request do
       let(:user) { FactoryGirl.create(:user) }
       # This creates a user with a different email address from the default. The tests specify that the original user should not
       # have access to the wrong user’s edit or update actions.
@@ -160,7 +160,7 @@ describe 'Authentication' do
       end
     end
 
-    describe 'as non-admin user' do
+    describe 'as non-admin user', type: :request do
       let(:user) { FactoryGirl.create(:user) }
       let(:non_admin) { FactoryGirl.create(:user) }
 
