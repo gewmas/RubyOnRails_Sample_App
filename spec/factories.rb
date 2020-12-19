@@ -1,21 +1,22 @@
-# Usage, FactoryGirl.create(:user)
+# Usage, FactoryBot.create(:user)
 
-FactoryGirl.define do
-	factory :user do
-		sequence(:name)  { |n| "Person #{n}" }
-		sequence(:email) { |n| "person_#{n}@example.com"}
-	    # name     "Michael Hartl"
-	    # email    "michael@example.com"
-	    password "foobar"
-	    password_confirmation "foobar"
+FactoryBot.define do
+  sequence(:name)  { |n| "Person #{n}" }
+  sequence(:email) { |n| "person#{n}#{Time.new.usec}@example.com" }
 
-	    factory :admin do
-	    	admin true
-	    end
-	end
+  factory :user do
+    name
+    email
+    password { 'foobar' }
+    password_confirmation { 'foobar' }
 
-	factory :micropost do
-		content "Lorem ipsum"
-		user
-	end
+    factory :admin do
+      admin { true }
+    end
+  end
+
+  factory :micropost do
+    content { 'Lorem ipsum' }
+    user
+  end
 end
