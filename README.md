@@ -16,3 +16,11 @@ by [Michael Hartl](http://michaelhartl.com/).
 # bundle install
 # bundle update rails
 ```
+
+## Test
+
+```
+rails db:migrate RAILS_ENV=test
+
+rails spec
+```
