@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
   end
 
   def follow!(other_user)
-    byebug
     relationships.create!(followed_id: other_user.id)
   end
 

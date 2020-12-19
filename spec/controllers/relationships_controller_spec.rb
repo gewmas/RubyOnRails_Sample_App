@@ -15,8 +15,8 @@ describe RelationshipsController, type: :controller do
     end
 
     it 'should respond with success' do
-      post :create, relationship: { followed_id: other_user.id }, xhr: true
-      expect(response).to be_success
+      post :create, params: { relationship: { followed_id: other_user.id } }, xhr: true
+      expect(response).to be_successful
     end
   end
 
@@ -26,13 +26,13 @@ describe RelationshipsController, type: :controller do
 
     it 'should decrement the Relationship count' do
       expect do
-        xhr :delete, :destroy, id: relationship.id
+        post :destroy, params: { id: relationship.id }, xhr: true
       end.to change(Relationship, :count).by(-1)
     end
 
     it 'should respond with success' do
-      xhr :delete, :destroy, id: relationship.id
-      expect(response).to be_success
+      post :destroy, params: { id: relationship.id }, xhr: true
+      expect(response).to be_successful
     end
   end
 end
