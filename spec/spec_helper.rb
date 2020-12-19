@@ -129,5 +129,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
+  config.include FactoryBot::Syntax::Methods
+
   # config.include Capybara::DSL
 end

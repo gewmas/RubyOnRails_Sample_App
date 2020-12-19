@@ -1,21 +1,22 @@
 # Usage, FactoryBot.create(:user)
 
 FactoryBot.define do
+  sequence(:name)  { |n| "Person #{n}" }
+  sequence(:email) { |n|  "person#{n}#{Time.new.usec}@example.com" }
+  
   factory :user do
-    sequence(:name)  { |n| "Person #{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com" }
-    # name     "Michael Hartl"
-    # email    "michael@example.com"
-    password 'foobar'
-    password_confirmation 'foobar'
+    name
+    email
+    password {'foobar' }
+    password_confirmation { 'foobar' }
 
     factory :admin do
-      admin true
+      admin { true }
     end
   end
 
   factory :micropost do
-    content 'Lorem ipsum'
+    content { 'Lorem ipsum' }
     user
   end
 end
