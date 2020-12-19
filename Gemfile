@@ -23,7 +23,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rspec'
+  gem 'rspec-rails', '~>4.0'
   gem 'sqlite3', '>=1.3.8'
 
   # The following optional lines are part of the advanced setup.

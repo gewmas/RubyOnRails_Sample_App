@@ -1,6 +1,7 @@
 require 'spec_helper'
+require 'rails_helper'
 
-describe RelationshipsController do
+describe RelationshipsController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
   let(:other_user) { FactoryBot.create(:user) }
 
@@ -9,7 +10,7 @@ describe RelationshipsController do
   describe 'creating a relationship with Ajax' do
     it 'should increment the Relationship count' do
       expect do
-        post :create, params: { relationship: { followed_id: other_user.id } } #, xhr: true
+        post :create, params: { relationship: { followed_id: other_user.id } }, xhr: true
       end.to change(Relationship, :count).by(1)
     end
 
